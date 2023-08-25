@@ -1,5 +1,7 @@
-namespace Ink.Parsed {
-    public class Identifier {
+namespace Ink.Parsed
+{
+    public class Identifier
+    {
         public string name;
         public Runtime.DebugMetadata debugMetadata;
 
@@ -8,6 +10,6 @@ namespace Ink.Parsed {
             return name;
         }
 
-        public static Identifier Done = new Identifier { name = "DONE", debugMetadata = null };
+        public static Identifier Done = new() { name = "DONE", debugMetadata = null };
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -11,8 +9,8 @@ public class NPC : MonoBehaviour, interactableObject
     public string InteractionPrompt => Prompt;
     public bool interact(Interactor interactor)
     {
-       // dialog = GetComponent<dialogTrigger>();
-       // dialog.StartDialog();
+        // dialog = GetComponent<dialogTrigger>();
+        // dialog.StartDialog();
 
         Debug.Log("Talking");
         return true;

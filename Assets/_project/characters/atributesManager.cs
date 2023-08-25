@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class statsPlayer : MonoBehaviour
 {
@@ -10,28 +7,28 @@ public class statsPlayer : MonoBehaviour
     public int health;
     public int attack;
     private bool inside = false;
-  
+
     // Start is called before the first frame update
-    public void TakeDamage (int amount)
+    public void TakeDamage(int amount)
     {
         health -= amount;
         //Debug.Log(health);
 
     }
 
-  public void DealDamage(GameObject target)
+    public void DealDamage(GameObject target)
     {
         var atm = target.GetComponent<statsPlayer>();
-       // Debug.Log(atm);
-        if(atm != null)
+        // Debug.Log(atm);
+        if (atm != null)
         {
             if (inside)
             {
                 atm.TakeDamage(attack);
-               // Debug.Log("it should work");
+                // Debug.Log("it should work");
             }
-           // Debug.Log("atm != null");
-         
+            // Debug.Log("atm != null");
+
         }
     }
 
@@ -47,8 +44,8 @@ public class statsPlayer : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         inside = false;
-       // Debug.Log("Exit");
-       // Debug.Log(inside);
+        // Debug.Log("Exit");
+        // Debug.Log(inside);
     }
 
 }

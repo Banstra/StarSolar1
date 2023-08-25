@@ -1,18 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class animationStateController : MonoBehaviour
 {
-    Animator animator;
+    private Animator animator;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         bool isWalking = animator.GetBool("isWalking") | animator.GetBool("isWalkingBack");
         bool Moving = Input.GetKey("s") | Input.GetKey("d");

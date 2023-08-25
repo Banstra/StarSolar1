@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DamagePopUpGenerator : MonoBehaviour
@@ -16,7 +12,7 @@ public class DamagePopUpGenerator : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        outside=true;
+        outside = true;
     }
     private void DamageRecived()
     {

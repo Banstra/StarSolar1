@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class caveSpawn : MonoBehaviour
@@ -9,14 +7,16 @@ public class caveSpawn : MonoBehaviour
     public int gridZ;
     public float gridSpacingOffset = 1f;
     public Vector3 gridOrigin = Vector3.zero;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         SpawnGrid();
     }
-    void SpawnGrid()
+
+    private void SpawnGrid()
     {
-for (int x = 0; x < gridX; x++)
+        for (int x = 0; x < gridX; x++)
         {
             for (int z = 0; z < gridZ; z++)
             {
@@ -25,14 +25,16 @@ for (int x = 0; x < gridX; x++)
             }
         }
     }
-    void PickAndSpawn(Vector3 positionToSpawn, Quaternion rotatoinToSpawn)
+
+    private void PickAndSpawn(Vector3 positionToSpawn, Quaternion rotatoinToSpawn)
     {
         int randomIndex = Random.Range(0, itemsToPickFrom.Length);
         GameObject clone = Instantiate(itemsToPickFrom[randomIndex], positionToSpawn, rotatoinToSpawn);
     }
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+
     }
 }

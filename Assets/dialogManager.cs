@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class dialogManager : MonoBehaviour
 { /*
@@ -63,5 +60,5 @@ public class dialogManager : MonoBehaviour
         }
     }
     */
-    
+
 }

@@ -1,15 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Interactor : MonoBehaviour
 {
-    [SerializeField] Transform interactionPoint;
-    [SerializeField] float interactionPointRadius = 0.5f;
-    [SerializeField] LayerMask InteractableMask;
-  
+    [SerializeField] private Transform interactionPoint;
+    [SerializeField] private float interactionPointRadius = 0.5f;
+    [SerializeField] private LayerMask InteractableMask;
+
 
     private readonly Collider[] colliders = new Collider[4];
     [SerializeField] private int numFound;
@@ -21,20 +17,21 @@ public class Interactor : MonoBehaviour
         numFound = Physics.OverlapSphereNonAlloc(interactionPoint.position, interactionPointRadius, colliders, InteractableMask);
         if (numFound > 0)
         {
-             _interactableObject = colliders[0].GetComponent<interactableObject>();
-            if(_interactableObject != null)
+            _interactableObject = colliders[0].GetComponent<interactableObject>();
+            if (_interactableObject != null)
             {
                 if (!InteractionPromptUI.IsDisplayed) InteractionPromptUI.SetUP(_interactableObject.InteractionPrompt);
-                if (Input.GetKeyDown(KeyCode.E)) {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
                     _interactableObject.interact(this);
-                     
+
                 }
-                
+
             }
         }
         else
         {
-           if(_interactableObject != null) _interactableObject = null;
+            if (_interactableObject != null) _interactableObject = null;
             if (InteractionPromptUI.IsDisplayed) InteractionPromptUI.Close();
         }
     }

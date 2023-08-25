@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -15,8 +13,9 @@ public class DamagePopUpAnim : MonoBehaviour
     {
         tmp = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         tmp.color = new Color(1, 1, 1, opacityCurve.Evaluate(time));
         transform.localScale = Vector3.one * scaleCurve.Evaluate(time);

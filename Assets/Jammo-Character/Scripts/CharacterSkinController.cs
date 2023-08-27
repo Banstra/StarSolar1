@@ -11,12 +11,10 @@ public class CharacterSkinController : MonoBehaviour
     public enum EyePosition { normal, happy, angry, dead }
     public EyePosition eyeState;
 
-    // Start is called before the first frame update
     private void Start()
     {
         animator = GetComponent<Animator>();
         characterMaterials = GetComponentsInChildren<Renderer>();
-
     }
 
     // Update is called once per frame

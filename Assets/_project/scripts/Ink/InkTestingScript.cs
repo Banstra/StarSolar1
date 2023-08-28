@@ -24,7 +24,7 @@ public class InkTestingScript : MonoBehaviour
 
     // Update is called once per frame
     private void Update()
-    {
+    {/*
         if (Input.GetKeyDown(KeyCode.E) && Interactor._interactableObject != null)
         {
             RefreshUI();
@@ -35,7 +35,7 @@ public class InkTestingScript : MonoBehaviour
             eraseUI();
         }
 
-
+        */
 
     }
 

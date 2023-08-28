@@ -1,45 +1,19 @@
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class Interactor : MonoBehaviour
 {
-    [SerializeField] private Transform interactionPoint;
-    [SerializeField] private float interactionPointRadius = 0.5f;
-    [SerializeField] private LayerMask InteractableMask;
+    public static Interactor Instance { get; private set; }
 
+    [SerializeField] private InteractionPointUI _interactionPromptUI;
 
-    private readonly Collider[] colliders = new Collider[4];
-    [SerializeField] private int numFound;
-    [SerializeField] private InteractionPointUI InteractionPromptUI;
+    private void Start() =>
+        Instance = this;
 
-    public static interactableObject _interactableObject;
-    private void Update()
-    {
-        numFound = Physics.OverlapSphereNonAlloc(interactionPoint.position, interactionPointRadius, colliders, InteractableMask);
-        if (numFound > 0)
-        {
-            _interactableObject = colliders[0].GetComponent<interactableObject>();
-            if (_interactableObject != null)
-            {
-                if (!InteractionPromptUI.IsDisplayed) InteractionPromptUI.SetUP(_interactableObject.InteractionPrompt);
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    _interactableObject.interact(this);
+    public void ShowMessage(string message) =>
+        _interactionPromptUI.SetUP(message);
 
-                }
-
-            }
-        }
-        else
-        {
-            if (_interactableObject != null) _interactableObject = null;
-            if (InteractionPromptUI.IsDisplayed) InteractionPromptUI.Close();
-        }
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(interactionPoint.position, interactionPointRadius);
-    }
-
+    public void CloseDialogueMenu() =>
+        _interactionPromptUI.Close();
 }
 

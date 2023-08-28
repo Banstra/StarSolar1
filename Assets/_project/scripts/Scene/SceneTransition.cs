@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransition : MonoBehaviour
 {
-    public static string _sceneName;
+    protected static string _sceneName;
     private const string _transitSceneName = "TransitScene";
 
     [SerializeField] GameObject _crossFade;

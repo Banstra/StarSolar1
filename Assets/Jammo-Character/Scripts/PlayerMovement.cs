@@ -4,23 +4,23 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    [SerializeField] float _speed;
-    [SerializeField] float _runSpeed;
-    [SerializeField] float _jumpForce;
-    [SerializeField] float _JumpKd;
+    [SerializeField] private float _speed;
+    [SerializeField] private float _runSpeed;
+    [SerializeField] private float _jumpForce;
+    [SerializeField] private float _JumpKd;
     private bool _isReadyToJump;
     [Space]
 
-    [SerializeField] bool _blockRotationPlayer;
-    [SerializeField] float _desiredRotationSpeed = 0.1f;
-    [SerializeField] float _allowPlayerRotation = 0.1f;
-    [SerializeField] Transform _camera;
+    [SerializeField] private bool _blockRotationPlayer;
+    [SerializeField] private float _desiredRotationSpeed = 0.1f;
+    [SerializeField] private float _allowPlayerRotation = 0.1f;
+    [SerializeField] private Transform _camera;
     private Rigidbody _body;
     private Animator _anim;
 
     [Header("Animation Smoothing")]
     [Range(0, 1f)]
-    [SerializeField] float StopAnimTime = 0.15f;
+    [SerializeField] private float StopAnimTime = 0.15f;
 
     private void Start()
     {

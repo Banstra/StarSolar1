@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,14 +7,14 @@ public class LoadScreen : MonoBehaviour
 {
     private AsyncOperation _async;
 
-    [SerializeField] Image _processBar;
-    [SerializeField] GameObject _interactionText;
+    [SerializeField] private Image _processBar;
+    [SerializeField] private GameObject _interactionText;
 
-    [SerializeField] TMP_Text _prompt;
-    [SerializeField] string[] _texts;
-    [SerializeField] Sprite[] _progressSprites;
-    [SerializeField] Sprite[] _mainSprites;
-    [SerializeField] Image _mainImage;
+    [SerializeField] private TMP_Text _prompt;
+    [SerializeField] private string[] _texts;
+    [SerializeField] private Sprite[] _progressSprites;
+    [SerializeField] private Sprite[] _mainSprites;
+    [SerializeField] private Image _mainImage;
 
     private void Start()
     {

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5367680845315155830}
   - component: {fileID: 3907289703638044841}
   - component: {fileID: 5255920017323442313}
+  - component: {fileID: 3620174685753694715}
   m_Layer: 8
   m_Name: Cooker
   m_TagString: Untagged
@@ -158,6 +159,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.19, y: 1.54, z: 2.05}
   m_Center: {x: 0, y: -0.0000009536743, z: 0}
+--- !u!114 &3620174685753694715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241725023244161917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54cbe7af9b11e3f41a715d773d25cdde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2560520536995742841
 PrefabInstance:
   m_ObjectHideFlags: 0

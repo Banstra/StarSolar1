@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class KDTimer : MonoBehaviour
 {
-    [SerializeField] protected float timeKD;
+    [SerializeField] protected float timeKD = 1;
     protected bool _isReady = true;
     protected IEnumerator CheckKD()
     {

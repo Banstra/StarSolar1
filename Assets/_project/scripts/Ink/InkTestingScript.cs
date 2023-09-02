@@ -2,110 +2,129 @@ using Ink.Runtime;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class InkTestingScript : MonoBehaviour
+public class InkTestingScript : KDTimer
 {
-    public TextAsset inkJSON;
-    private Story story;
+    public static InkTestingScript Instance { get; private set; }
 
+    public UnityEvent StartDialogue { get; private set; } = new();
+    public UnityEvent EndDialogue { get; private set; } = new();
+    private Story _story;
 
-    // public Text textPrefab;
-    public Button buttonPrefab;
+    [SerializeField] InteractionPointUI _UI;
 
-    public TextMeshProUGUI textPrefab;
+    [SerializeField] TMP_Text _text;
 
-    // Start is called before the first frame update
-    private void Start()
+    [SerializeField] Button[] _buttons;
+    [SerializeField] TMP_Text[] _buttonsText;
+    private bool _isChoosing;
+
+    [SerializeField] TextAsset _globals;
+    private DialogueVariables _variables;
+
+    private void Awake()
     {
-        story = new Story(inkJSON.text);
-
+        Instance = this;
+        EndDialogue.AddListener(() => _variables.StopListening(_story));
+        EndDialogue.AddListener(HideUI);
+        StartDialogue.AddListener(() => _variables.StartListening(_story));
+        _variables = new(_globals);
     }
 
-    // Update is called once per frame
     private void Update()
-    {/*
-        if (Input.GetKeyDown(KeyCode.E) && Interactor._interactableObject != null)
-        {
-            RefreshUI();
-        }
+    {
+        if (Interactor.Instance.IsDealing)
+            if (Input.GetAxis(InputStrings.InteractionAxis) == 1 && _isReady)
+            {
+                RefreshUI();
+                StartCoroutine(CheckKD());
+            }
+    }
 
-        if (Interactor._interactableObject == null)
-        {
-            eraseUI();
-        }
-
-        */
-
+    public void SetDialogue(TextAsset dialogueJSON)
+    {
+        _story = new Story(dialogueJSON.text);
+        StartDialogue.Invoke();
     }
 
     private void RefreshUI()
     {
-        eraseUI();
+        _UI.StartDialogue();
+        if (_story == null) return;
 
-
-        ;
-
-        TextMeshProUGUI storyText = Instantiate(textPrefab);
-        string text = loadStoryChunk();
-
-
-        List<string> tags = story.currentTags;
+        string text = LoadStoryChunk();
+        if (text == string.Empty) return;
+        List<string> tags = _story.currentTags;
 
         if (tags.Count > 0)
-        {
             text = "<b>" + tags[0] + "</b> - " + text;
-        }
 
-        storyText.text = text;
-        storyText.transform.SetParent(transform, false);
-        foreach (Choice choice in story.currentChoices)
+        _text.text = text;
+
+        var choices = _story.currentChoices.ToArray();
+        var i = 0;
+        HideButtons();
+        if (choices.Length == 0)
         {
-
-
-
-            Button choiceButton = Instantiate(buttonPrefab);
-            choiceButton.transform.SetParent(transform, false);
-
-            Text choiceText = buttonPrefab.GetComponentInChildren<Text>();
-            choiceText.text = choice.text;
-
-            choiceButton.onClick.AddListener(delegate
+            _isChoosing = false;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+            foreach (var choice in choices)
             {
-                chooseStoryChoice(choice);
-            });
-        }
+                if (i >= _buttons.Length) break;
+                _isChoosing = true;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.Confined;
 
+                _buttons[i].gameObject.SetActive(true);
+                _buttonsText[i].text = choice.text;
 
-
+                _buttons[i].onClick.AddListener(delegate
+                {
+                    ChooseStoryChoice(choice);
+                });
+                i++;
+            }
     }
 
-    private void eraseUI()
+    private void HideButtons()
     {
-        for (int i = 0; i < transform.childCount; i++)
+        foreach (var button in _buttons)
         {
-            Destroy(transform.GetChild(i).gameObject);
+            button.onClick.RemoveAllListeners();
+            button.gameObject.SetActive(false);
         }
     }
 
-    private void chooseStoryChoice(Choice choice)
+    private void HideUI()
     {
-        story.ChooseChoiceIndex(choice.index);
+        _text.text = string.Empty;
+        HideButtons();
+        _UI.Close();
+        _story = null;
+    }
+
+    private void ChooseStoryChoice(Choice choice)
+    {
+        _story.ChooseChoiceIndex(choice.index);
         RefreshUI();
     }
 
-    private string loadStoryChunk()
+    private string LoadStoryChunk()
     {
-        string text = "";
-        if (story.canContinue)
-        {
-            text = story.Continue();
-
-        }
+        string text = string.Empty;
+        if (_story.canContinue)
+            text = _story.Continue();
+        else if (!_isChoosing)
+            EndDialogue.Invoke();
 
         return text;
     }
 
-
-
+    public string GetDataToSave() => _variables.GetDataToVariables();
+    public void Load(string story) => _variables.Load(story);
 }

@@ -1,19 +1,33 @@
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class Interactor : MonoBehaviour
 {
     public static Interactor Instance { get; private set; }
 
-    [SerializeField] private InteractionPointUI _interactionPromptUI;
-
-    private void Start() =>
+    [SerializeField] private PlayerMovement _movement;
+    [SerializeField] InkTestingScript _ink;
+    public bool IsDealing { get; private set; } = false;
+    private void Start()
+    {
         Instance = this;
+        _ink.EndDialogue.AddListener(CloseDialogueMenu);
+    }
 
-    public void ShowMessage(string message) =>
-        _interactionPromptUI.SetUP(message);
+    public void StartDialogue(TextAsset dialogue)
+    {
+        InkTestingScript.Instance.SetDialogue(dialogue);
+        IsDealing = true;
+        _movement.enabled = false;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+    }
 
-    public void CloseDialogueMenu() =>
-        _interactionPromptUI.Close();
+    private void CloseDialogueMenu()
+    {
+        IsDealing = false;
+        _movement.enabled = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 }
 

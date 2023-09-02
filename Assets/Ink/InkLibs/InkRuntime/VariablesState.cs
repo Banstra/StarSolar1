@@ -8,7 +8,8 @@ namespace Ink.Runtime
     /// allows binding of a VariableChanged event so that that game
     /// code can be notified whenever the global variables change.
     /// </summary>
-	public class VariablesState : IEnumerable<string>
+    [Serializable]
+    public class VariablesState : IEnumerable<string>
     {
         public delegate void VariableChanged(string variableName, Runtime.Object newValue);
         public event VariableChanged variableChangedEvent;
@@ -396,7 +397,6 @@ namespace Ink.Runtime
 
             if (variableChangedEvent != null && !value.Equals(oldValue))
             {
-
                 if (batchObservingVariableChanges)
                 {
                     if (patch != null)

@@ -4,8 +4,8 @@ public class CameraRotation : MonoBehaviour
 {
     private const float _threshold = 0.01f;
 
-    [SerializeField] float _horizontalSpeed;
-    [SerializeField] float _verticalSpeed;
+    [SerializeField] private float _horizontalSpeed;
+    [SerializeField] private float _verticalSpeed;
 
     private float _cinemachineTargetYaw;
     private float _cinemachineTargetPitch;
@@ -36,7 +36,7 @@ public class CameraRotation : MonoBehaviour
     {
         var x = Input.GetAxis(InputStrings.MouseXAxis);
         var y = Input.GetAxis(InputStrings.MouseYAxis);
-       
+
         var look = new Vector3(x, y);
         if (look.sqrMagnitude >= _threshold)
         {

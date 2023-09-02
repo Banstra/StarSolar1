@@ -31,7 +31,7 @@ Transform:
   m_Children:
   - {fileID: 5241179866687231867}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4982642746717536065
 MonoBehaviour:
@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneName: forest
+  _positionOnScene: {x: 0, y: 0, z: 0}
+  _rotationOnScene: {x: 0, y: 0, z: 0}
 --- !u!1001 &7509347349310796375
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -152,7 +154,7 @@ PrefabInstance:
     - target: {fileID: 3587684670276402630, guid: 970e7d2e93129e74ebbf94a4ee3f1a8b,
         type: 3}
       propertyPath: _interactiveEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeScene
+      value: SaveData
       objectReference: {fileID: 0}
     - target: {fileID: 3587684670276402630, guid: 970e7d2e93129e74ebbf94a4ee3f1a8b,
         type: 3}

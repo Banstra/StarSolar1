@@ -1,19 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EyesController : MonoBehaviour
 {
-    [SerializeField] List<GameObject> _normal;
-    [SerializeField] List<GameObject> _shocked;
-    [SerializeField] List<GameObject> _closed;
+    [SerializeField] private List<GameObject> _normal;
+    [SerializeField] private List<GameObject> _shocked;
+    [SerializeField] private List<GameObject> _closed;
 
     private List<GameObject> _currentEmotion;
 
-    [SerializeField] float _changeKD;
-    private bool _isReady = true;
+    [SerializeField] private float _changeKD;
+    private readonly bool _isReady = true;
 
-    void Update()
+    private void Update()
     {
         if (!_isReady) return;
 

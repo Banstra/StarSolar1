@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class InteractiveObject : KDTimer
 {
-    [SerializeField] bool _isDisposable;
+    [SerializeField] private bool _isDisposable;
 
-    [SerializeField] GameObject _interactiveText;
-    [SerializeField] bool _isLookAtCam = true;
+    [SerializeField] private GameObject _interactiveText;
+    [SerializeField] private bool _isLookAtCam = true;
 
-    [SerializeField] UnityEvent _interactiveEvent;
-    [SerializeField] UnityEvent _enterEvent;
-    [SerializeField] UnityEvent _exitEvent;
+    [SerializeField] private UnityEvent _interactiveEvent;
+    [SerializeField] private UnityEvent _enterEvent;
+    [SerializeField] private UnityEvent _exitEvent;
 
     private void Update()
     {
@@ -36,7 +34,11 @@ public class InteractiveObject : KDTimer
         if (_isReady && Input.GetAxis(InputStrings.InteractionAxis) == 1)
         {
             _interactiveEvent.Invoke();
-            if (_isDisposable) Destroy(gameObject);
+            if (_isDisposable)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
             StartCoroutine(CheckKD());
         }
     }

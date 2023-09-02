@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PinkstarClearCheck : MonoBehaviour
 {
-    [SerializeField] float _propsCount;
-    [SerializeField] string _cutsceneName;
+    [SerializeField] private float _propsCount;
+    [SerializeField] private string _cutsceneName;
 
     private int _countUsedProps = 0;
 

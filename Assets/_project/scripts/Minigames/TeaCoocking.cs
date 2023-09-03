@@ -25,6 +25,7 @@ public class TeaCoocking : KDTimer
 
     private void Update()
     {
+        _isUsing = _UI.activeSelf;
         if (_isUsing == false) return;
         if (_isCooking)
             _arrow.position += transform.right * _speed * Time.deltaTime;
@@ -50,11 +51,8 @@ public class TeaCoocking : KDTimer
         }
     }
 
-    public void ShowUI()
-    {
+    public void ShowUI() =>
         _UI.SetActive(true);
-        _isUsing = true;
-    }
     private IEnumerator CloseUI(float time)
     {
         _isCooking = false;

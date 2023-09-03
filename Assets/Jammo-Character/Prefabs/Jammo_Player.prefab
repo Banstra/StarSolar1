@@ -133,7 +133,7 @@ MonoBehaviour:
   _verticalSpeed: 80
   CinemachineCameraTarget: {fileID: 6804715243375753960}
   TopClamp: 30
-  BottomClamp: -30
+  BottomClamp: -5
   CameraAngleOverride: 0
 --- !u!1 &6804715243375753960
 GameObject:

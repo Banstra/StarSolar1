@@ -24,6 +24,8 @@ public class InkTestingScript : KDTimer
     [SerializeField] TextAsset _globals;
     private DialogueVariables _variables;
 
+    [SerializeField] CameraRotation _cameraRot;
+
     private void Awake()
     {
         Instance = this;
@@ -47,10 +49,12 @@ public class InkTestingScript : KDTimer
     {
         _story = new Story(dialogueJSON.text);
         StartDialogue.Invoke();
+        HideButtons();
     }
 
     private void RefreshUI()
     {
+        if (_isChoosing) return;
         _UI.StartDialogue();
         if (_story == null) return;
 
@@ -67,18 +71,12 @@ public class InkTestingScript : KDTimer
         var i = 0;
         HideButtons();
         if (choices.Length == 0)
-        {
-            _isChoosing = false;
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
+            SetChangeSettings(false);
         else
             foreach (var choice in choices)
             {
                 if (i >= _buttons.Length) break;
-                _isChoosing = true;
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.Confined;
+                SetChangeSettings(true);
 
                 _buttons[i].gameObject.SetActive(true);
                 _buttonsText[i].text = choice.text;
@@ -111,6 +109,7 @@ public class InkTestingScript : KDTimer
     private void ChooseStoryChoice(Choice choice)
     {
         _story.ChooseChoiceIndex(choice.index);
+        SetChangeSettings(false);
         RefreshUI();
     }
 
@@ -125,6 +124,13 @@ public class InkTestingScript : KDTimer
         return text;
     }
 
+    private void SetChangeSettings(bool isChanged)
+    {
+        _isChoosing = isChanged;
+        Cursor.visible = isChanged;
+        Cursor.lockState = isChanged ? CursorLockMode.Confined : CursorLockMode.Locked;
+        _cameraRot.enabled = !isChanged;
+    }
     public string GetDataToSave() => _variables.GetDataToVariables();
     public void Load(string story) => _variables.Load(story);
 }
